@@ -1,0 +1,99 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+bool searchHorizontal(char matrix[max_rows][max_cols], int rows, int cols, string word) {
+    for (int i = 0; i < rows; i++) {
+        string rowStr = "";
+        for (int j = 0; j < cols; j++) {
+            rowStr += matrix[i][j];
+        }
+        if (rowStr.find(word) != string::npos) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool searchVertical(char matrix[max_rows][max_cols], int rows, int cols, string word) {
+    for (int j = 0; j < cols; j++) {
+        string colStr = "";
+        for (int i = 0; i < rows; i++) {
+            colStr += matrix[i][j];
+        }
+        if (colStr.find(word) != string::npos) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool searchDiagonalRight(char matrix[max_rows][max_cols], int rows, int cols, string word) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            string diagStrR = "";
+            for (int k = 0; k < word.length(); k++) {
+                if (i + k < rows && j + k < cols) {
+                    diagStrR += matrix[i + k][j + k];
+                }
+            }
+            if (diagStrR == word) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool searchDiagonalLeft(char matrix[max_rows][max_cols], int rows, int cols, string word) {
+    for (int i=0; i<rows; i++) {
+        for (int j=cols-1; j>=0; j--) {
+            string diagStrL = "";
+            for (int k = 0; k < word.length(); k++) {
+                if (i + k < rows && j - k >= 0) {
+                    diagStrL += matrix[i - k][j - k];
+                }
+            }
+            if (diagStrL == word) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
+bool searchDiagonalRightUp(char matrix[max_rows][max_cols], int rows, int cols, string word) {
+    for (int i=rows-1; i>=0; i--) {
+        for (int j=0; j<cols; j++) {
+            string diagStrRU = "";
+            for (int k=0; k<word.length(); k++) {
+                if (i - k >= 0 && j + k < cols) {
+                    diagStrRU += matrix[i - k][j + k];
+                }
+            }
+            if (diagStrRU == word) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool searchDiagonalLeftUp(char matrix[max_rows][max_cols], int rows, int cols, string word) {
+    for (int i=rows-1; i>=0; i--) {
+        for (int j=cols-1; j>=0; j--) {
+            string diagStrLU = "";
+            for (int k=0; k<word.length(); k++) {
+                if (i - k >= 0 && j - k >= 0) {
+                    diagStrLU += matrix[i - k][j - k];
+                }
+            }
+            if (diagStrLU == word) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
